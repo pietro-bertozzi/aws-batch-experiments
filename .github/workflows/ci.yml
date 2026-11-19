@@ -1,0 +1,32 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.5
+      - name: fmt
+        run: terraform fmt -check -recursive terraform
+      - name: validate
+        run: |
+          for d in bootstrap foundation compute; do
+            terraform -chdir=terraform/$d init -backend=false -input=false
+            terraform -chdir=terraform/$d validate
+          done
+
+  shell:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck -x *.sh platform/*.sh tests/*.sh
+      - name: no personal info in tracked files
+        run: tests/check_no_personal_info.sh
+      - name: wrapper tests
+        run: tests/test_wrapper.sh

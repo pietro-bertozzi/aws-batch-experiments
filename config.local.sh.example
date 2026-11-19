@@ -1,0 +1,6 @@
+# Copy to config.local.sh (git-ignored) to set personal values for the scripts.
+# Anything here overrides the defaults in lib.sh. All lines are optional.
+#
+# export AWS_PROFILE=my-profile
+# export AWS_DEFAULT_REGION=eu-north-1   # must match terraform "region"
+# PREFIX=exp                             # must match terraform "name"

@@ -42,3 +42,13 @@ terraform.rc
 # Optional: ignore plan files saved before destroying Terraform configuration
 # Uncomment the line below if you want to ignore planout files.
 # planout
+terraform.tfvars
+__pycache__/
+
+# Personal / local-only settings and secrets
+config.local.sh
+.env
+.env.*
+*.local
+*.tfplan
+.claude/settings.local.json
